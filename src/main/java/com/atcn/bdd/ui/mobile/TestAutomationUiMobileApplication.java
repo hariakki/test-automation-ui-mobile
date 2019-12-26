@@ -1,4 +1,4 @@
-package com.atcn.bdd.ui.mobile.testautomationuimobile;
+package com.atcn.bdd.ui.mobile;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

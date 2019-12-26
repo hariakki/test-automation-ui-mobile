@@ -1,4 +1,4 @@
-package com.atcn.bdd.ui.mobile.testautomationuimobile;
+package com.atcn.bdd.ui.mobile;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
