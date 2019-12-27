@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 //        dryRun = true,
 
-        tags = {"@AndroidNative-1"},
+        tags = {"@Mobile-1"},
         features = {"src/test/resources/features"},
         glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
         plugin = {
@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber-report-json/cucumber-report.json"
         }
 )
-public class Runner {
+public class MobileRunner {
 
     @AfterClass
     public static void afterClass() {

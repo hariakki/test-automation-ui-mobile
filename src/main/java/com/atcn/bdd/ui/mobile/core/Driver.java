@@ -4,13 +4,21 @@ import com.atcn.bdd.ui.mobile.core.springConfig.data.YAMLConfigStatic4AOS;
 import com.atcn.bdd.ui.mobile.core.springConfig.data.YAMLConfigStatic4IOS;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class Driver {
@@ -23,6 +31,16 @@ public class Driver {
     @Value("${appActivity}")
     public void setAppActivity(String appActivity) {
         Driver.appActivity = appActivity;
+    }
+
+    @Value("${webUrl}")
+    public void setWebUrl(String webUrl) {
+        Driver.webUrl = webUrl;
+    }
+
+    @Value("${driverPath}")
+    public void setDriverPath(String driverPath) {
+        Driver.driverPath = driverPath;
     }
 
 
@@ -45,34 +63,76 @@ public class Driver {
         Driver.automationSeleniumGridUrl = automationSeleniumGridUrl;
     }
 
+    @Value("${capability.web.browserType}")
+    public void setWebBrowserType(String browserType) {
+        Driver.webBrowserType = browserType;
+    }
+
+    @Value("${capability.web.remote}")
+    public void isRemote(boolean remote) {
+        Driver.webRemote = remote;
+    }
+
     private static String appPackage;
     private static String appActivity;
+
+    private static String webUrl;
+    private static String driverPath;
 
     private static String automationType;
     private static String automamationAppiumUrl;
     private static String automationSeleniumGridUrl;
 
-    private static AppiumDriver driver;
+    private static String webBrowserType;
+    private static boolean webRemote;
+
+    private static AppiumDriver appiumDriver;
+    private static WebDriver webDriver;
 
     private static final Logger logger = LoggerFactory.getLogger(Driver.class);
 
     public static AppiumDriver launchDriver() {
 
-        if (driver == null) {
-            logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating...");
+        if (appiumDriver == null) {
             if (automationType.equalsIgnoreCase("Android")) {
+                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Android Driver...");
                 Driver.initAndroidDriver();
             } else if (automationType.equalsIgnoreCase("ios")) {
+                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating IOS Driver...");
                 Driver.initIOSDriver();
+            } else {
+                logger.info("++++++++++++++++++++++++++++++++ Not Mobile Automation. AppiumDriver return null...");
+                return null;
             }
         } else {
             logger.info("++++++++++++++++++++++++++++++++ Driver Existed. Return exist...");
         }
 
-        return driver;
+        return appiumDriver;
     }
 
-    public static AppiumDriver initAndroidDriver() {
+    public static WebDriver launchWebDriver() {
+        if (webDriver == null) {
+            if (automationType.equalsIgnoreCase("Web") && webBrowserType.equalsIgnoreCase("chrome")) {
+                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Web Driver of Chrome...");
+                Driver.initWebChromeDriver();
+            } else if (automationType.equalsIgnoreCase("Web") && webBrowserType.equalsIgnoreCase("firefox")) {
+                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Web Driver of Firefox...");
+                Driver.initWebFirefoxDriver();
+            } else {
+                logger.info("++++++++++++++++++++++++++++++++ Not Web Automation. WebDriver return null...");
+                return null;
+            }
+            webDriver.manage().window().maximize();
+            webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            webDriver.navigate().to(webUrl);
+        }
+
+        return webDriver;
+    }
+
+    public static void initAndroidDriver() {
 
         try {
             DesiredCapabilities cap = new DesiredCapabilities();
@@ -89,17 +149,16 @@ public class Driver {
 
             URL server = new URL(automamationAppiumUrl);
 
-            driver = new AppiumDriver(server, cap);
+            appiumDriver = new AppiumDriver(server, cap);
 
         } catch (Exception e) {
             System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
             System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
         }
 
-        return driver;
     }
 
-    public static AppiumDriver initIOSDriver() {
+    public static void initIOSDriver() {
         try {
             DesiredCapabilities cap = new DesiredCapabilities();
             cap.setCapability(MobileCapabilityType.DEVICE_NAME, YAMLConfigStatic4IOS.getDeviceName());
@@ -115,26 +174,79 @@ public class Driver {
 
             URL server = new URL(automamationAppiumUrl);
 
-            driver = new AppiumDriver(server, cap);
+            appiumDriver = new AppiumDriver(server, cap);
 
         } catch (Exception e) {
             System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
             System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
         }
 
-        return driver;
     }
 
-    public static void destroyDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-            logger.info("++++++++++++++++++++++++++++++++ Destroying Driver...");
+    public static void initWebChromeDriver() {
+        ChromeOptions opts = new ChromeOptions();
+        opts.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        opts.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+        opts.addArguments("--disable-extensions-except");
+        opts.addArguments("--disable-popup-blocking");
+
+        if (webRemote) {
+            Driver.startRemoteDriver(new DesiredCapabilities(opts));
+        } else {
+//            WebDriverManager.chromedriver().setup();
+            System.setProperty("webdriver.chrome.driver", driverPath + "/chromedriver");
+            webDriver = new ChromeDriver(opts);
         }
     }
 
-    public static AppiumDriver getDriver() {
-        return driver;
+    public static void initWebFirefoxDriver() {
+        FirefoxOptions opts = new FirefoxOptions();
+        opts.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        opts.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+        /**
+         * Option 2: Below setting is to read "default" firefox profile -- local browser more faster
+         */
+//        ProfilesIni profilesIni = new ProfilesIni();
+//        FirefoxProfile defaultProfile = profilesIni.getProfile("default");
+//        opts.setProfile(defaultProfile);
+
+        if (webRemote) {
+            Driver.startRemoteDriver(new DesiredCapabilities(opts));
+        } else {
+//            WebDriverManager.chromedriver().setup();
+            System.setProperty("webdriver.gecko.driver", driverPath + "/geckodriver");
+            webDriver = new FirefoxDriver(opts);
+        }
+    }
+
+    public static void startRemoteDriver(DesiredCapabilities caps) {
+        try {
+            webDriver = new RemoteWebDriver(new URL(automationSeleniumGridUrl), caps);
+        } catch (Exception e) {
+            System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
+            System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
+        }
+    }
+
+    public static void destroyDriver() {
+        if (appiumDriver != null) {
+            logger.info("++++++++++++++++++++++++++++++++ Destroying Appium Driver...");
+            appiumDriver.quit();
+            appiumDriver = null;
+        }
+        if (webDriver != null) {
+            logger.info("++++++++++++++++++++++++++++++++ Destroying Web Driver...");
+            webDriver.quit();
+            webDriver = null;
+        }
+    }
+
+    public static AppiumDriver getAppiumDriver() {
+        return appiumDriver;
+    }
+
+    public static WebDriver getWebDriver() {
+        return webDriver;
     }
 
 }

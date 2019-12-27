@@ -1,15 +1,15 @@
-# Android, IOS, Web
+# automation.type - {Android, IOS, Web}
 automation:
   type: "Android"
   appiumServer: "http://127.0.0.1:4723/wd/hub"
-  seleniumGridServer: "http://127.0.0.1:4444/wd/hub"
+  seleniumGridServer: "http://192.168.56.1:4444/wd/hub"
 
 capability:
   android:
     platformName: "Android"
-    platformVersion: "8.0.0.0"
+    platformVersion: "8.0.0"
     deviceName: "GooglePixelAPI26"
-    udid: "192.168.56.102:5555"
+    udid: "192.168.56.104:5555"
     noReset: true
     fullReset: false
     newCMDTimeout: 60
@@ -22,5 +22,10 @@ capability:
     noReset: true
     fullReset: false
     newCMDTimeout: 60
+
+  web:
+# capability.web.browserType - {chrome, firefox}
+    browserType: "chrome"
+    remote: false
 
 

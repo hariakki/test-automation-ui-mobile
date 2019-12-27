@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CalculatorStep {
 
     @Autowired
-    CalculatorPage calculatorPage;
+    private CalculatorPage calculatorPage;
 
     @Given("^I am on calculator page$")
     public void iAmOnCalculatorPage() throws Throwable {

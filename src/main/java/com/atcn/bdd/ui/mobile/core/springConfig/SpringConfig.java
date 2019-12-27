@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = {"com.atcn.bdd.ui.mobile.*"})
 @PropertySource("classpath:mobileConfig.properties")
+@PropertySource("classpath:webConfig.properties")
 @EnableAutoConfiguration
 public class SpringConfig {
 }

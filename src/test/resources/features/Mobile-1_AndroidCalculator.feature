@@ -1,7 +1,7 @@
-@AndroidNative
-Feature: Spike-Native-1_AndroidCalculator
+@Mobile-1
+Feature: Mobile-Native-1_AndroidCalculator
 
-  @AndroidNative-1
+  @Mobile-1-1
   Scenario: Android calculator add
     Given I am on calculator page
     When Tap number twelve
