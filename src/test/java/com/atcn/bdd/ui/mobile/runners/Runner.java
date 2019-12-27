@@ -24,7 +24,6 @@ public class Runner {
 
     @AfterClass
     public static void afterClass() {
-        System.out.println("++++++++++++++++++++++++++++++++ AfterClass Destroying Driver...");
         Driver.destroyDriver();
     }
 }

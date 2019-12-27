@@ -16,9 +16,9 @@ capability:
 
   ios:
     platformName: "IOS"
-    platformVersion: ""
-    deviceName: ""
-    udid: ""
+    platformVersion: "ios 12.3"
+    deviceName: "iPhone 11 Pro"
+    udid: "IdoNotKnow"
     noReset: true
     fullReset: false
     newCMDTimeout: 60

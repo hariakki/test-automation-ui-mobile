@@ -8,6 +8,7 @@ public abstract class BasePage extends WaitHelper {
 
     protected BasePage() {
         logger.info("++++++++++++++++++++++++++++++++ Running automation type is: " + Driver.getAutomationType());
+        logger.info("++++++++++++++++++++++++++++++++ Capabilities are: \n" + Driver.getDriver().getCapabilities().toString());
         if (Driver.getAutomationType().equalsIgnoreCase("Android")
                 || Driver.getAutomationType().equalsIgnoreCase("IOS")) {
             PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
@@ -16,7 +17,7 @@ public abstract class BasePage extends WaitHelper {
             PageFactory.initElements(this.driver, this);
 
         } else {
-            System.out.println("++++++++++++++++++++++++++++++++ No matching automation type");
+            logger.info("++++++++++++++++++++++++++++++++ No matching automation type");
         }
     }
 

@@ -19,6 +19,7 @@ public abstract class WaitHelper {
     protected AppiumDriver driver = Driver.launchDriver();
 
     protected void waitFluentVisibilityOfElm(WebElement element) {
+        logger.debug("Fluent wait element: " + element);
         org.openqa.selenium.support.ui.Wait wait = new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(60))
                 .pollingEvery(Duration.ofSeconds(1))
