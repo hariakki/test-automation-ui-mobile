@@ -1,0 +1,26 @@
+# Android, IOS, Web
+automation:
+  type: "Android"
+  appiumServer: "http://127.0.0.1:4723/wd/hub"
+  seleniumGridServer: "http://127.0.0.1:4444/wd/hub"
+
+capability:
+  android:
+    platformName: "Android"
+    platformVersion: "8.0.0.0"
+    deviceName: "GooglePixelAPI26"
+    udid: "192.168.56.102:5555"
+    noReset: true
+    fullReset: false
+    newCMDTimeout: 60
+
+  ios:
+    platformName: "IOS"
+    platformVersion: ""
+    deviceName: ""
+    udid: ""
+    noReset: true
+    fullReset: false
+    newCMDTimeout: 60
+
+

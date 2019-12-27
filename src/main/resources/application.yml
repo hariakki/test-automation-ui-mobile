@@ -1,2 +1,2 @@
 # Put common beans here, can be overwritten by "Specific environment" or "VM Option"
-spring.profiles.active=default
+#spring.profiles.active: default
