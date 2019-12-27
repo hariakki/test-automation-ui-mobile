@@ -1,18 +1,10 @@
 package com.atcn.bdd.ui.mobile.core;
 
-import io.appium.java_client.AppiumDriver;
+import com.atcn.bdd.ui.mobile.core.helpers.WaitHelper;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
-@Component
-public abstract class BasePage {
-
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    protected AppiumDriver driver = Driver.launchDriver();
+public abstract class BasePage extends WaitHelper {
 
     protected BasePage() {
         logger.info("++++++++++++++++++++++++++++++++ Running automation type is: " + Driver.getAutomationType());
@@ -26,8 +18,6 @@ public abstract class BasePage {
         } else {
             System.out.println("++++++++++++++++++++++++++++++++ No matching automation type");
         }
-
     }
-
 
 }
