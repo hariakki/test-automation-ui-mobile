@@ -24,6 +24,7 @@ public class FailedScenariosRunner {
     @AfterClass
     public static void afterClass() {
         Driver.destroyDriver();
-        GenCucumberReport.generateReport();
+        // Comment out fancy reporting in case appending duplicate, check built-in native report from plugin.
+//        GenCucumberReport.generateReport();
     }
 }

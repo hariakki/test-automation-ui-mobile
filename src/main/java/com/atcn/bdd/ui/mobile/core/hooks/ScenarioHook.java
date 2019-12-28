@@ -1,5 +1,6 @@
 package com.atcn.bdd.ui.mobile.core.hooks;
 
+import com.atcn.bdd.ui.mobile.core.Driver;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -18,6 +19,12 @@ public class ScenarioHook {
     @After
     public void teardown(Scenario scenario) {
         logger.info("Scenario after hook started");
-
+        /**
+         * Web After
+         */
+        if (Driver.getAutomationType().equalsIgnoreCase("Web")) {
+            logger.info("Quiting Web Driver");
+            Driver.getWebDriver().quit();
+        }
     }
 }

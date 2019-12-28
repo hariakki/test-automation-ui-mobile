@@ -1,10 +1,9 @@
-package com.atcn.bdd.ui.mobile.runners;
+package com.atcn.bdd.ui.mobile.core.reporting;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.presentation.PresentationMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,8 +45,8 @@ public class GenCucumberReport {
         String projectName = "cucumberProject";
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-        // optional configuration - check javadoc for details
-        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+        // optional configuration - check javadoc for details(impact report menu display)
+//        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         // do not make scenario failed when step has status SKIPPED
         configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
 //        configuration.setBuildNumber(buildNumber);
