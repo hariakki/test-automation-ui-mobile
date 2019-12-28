@@ -1,5 +1,5 @@
 @Mobile-1
-Feature: Mobile-Native-1_AndroidCalculator
+Feature: Mobile-1_AndroidCalculator
 
   @Mobile-1-1
   Scenario: Android calculator add

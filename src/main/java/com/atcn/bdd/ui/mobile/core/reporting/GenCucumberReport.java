@@ -4,6 +4,8 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +26,11 @@ public class GenCucumberReport {
      * https://www.mkyong.com/java/java-how-to-list-all-files-in-a-directory/
      */
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenCucumberReport.class);
+
     public static void generateReport() {
+
+        LOGGER.info("Report generating...");
 
         File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
@@ -64,5 +70,7 @@ public class GenCucumberReport {
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();
 // and here validate 'result' to decide what to do if report has failed
+
+        LOGGER.info("Report generated.");
     }
 }

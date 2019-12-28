@@ -229,11 +229,11 @@ public class Driver {
     public static void destroyDriver() {
         if (automationType.equalsIgnoreCase("Android")
                 || automationType.equalsIgnoreCase("IOS")) {
-            LOGGER.info("Destroying Appium Driver...");
             appiumDriver.quit();
+            LOGGER.info("Appium Driver destroyed.");
 
         } else if (automationType.equalsIgnoreCase("Web")) {
-            LOGGER.info("Destroying Web Driver...");
+            LOGGER.info("Web Driver destroyed.");
             webDriver.quit();
         }
     }
