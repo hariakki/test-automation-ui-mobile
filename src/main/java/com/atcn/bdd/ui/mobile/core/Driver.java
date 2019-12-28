@@ -89,23 +89,23 @@ public class Driver {
     private static AppiumDriver appiumDriver;
     private static WebDriver webDriver;
 
-    private static final Logger logger = LoggerFactory.getLogger(Driver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Driver.class);
 
-    public static AppiumDriver launchDriver() {
+    public static AppiumDriver launchAppiumDriver() {
 
         if (appiumDriver == null) {
             if (automationType.equalsIgnoreCase("Android")) {
-                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Android Driver...");
+                LOGGER.info("Null Driver. Creating Android Driver...");
                 Driver.initAndroidDriver();
             } else if (automationType.equalsIgnoreCase("ios")) {
-                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating IOS Driver...");
+                LOGGER.info("Null Driver. Creating IOS Driver...");
                 Driver.initIOSDriver();
             } else {
-                logger.info("++++++++++++++++++++++++++++++++ Not Mobile Automation. AppiumDriver return null...");
+                LOGGER.info("Not Mobile Automation. AppiumDriver return null...");
                 return null;
             }
         } else {
-            logger.info("++++++++++++++++++++++++++++++++ Driver Existed. Return exist...");
+            LOGGER.info("Driver Existed. Return exist...");
         }
 
         return appiumDriver;
@@ -114,13 +114,13 @@ public class Driver {
     public static WebDriver launchWebDriver() {
         if (webDriver == null) {
             if (automationType.equalsIgnoreCase("Web") && webBrowserType.equalsIgnoreCase("chrome")) {
-                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Web Driver of Chrome...");
+                LOGGER.info("Null Driver. Creating Web Driver of Chrome...");
                 Driver.initWebChromeDriver();
             } else if (automationType.equalsIgnoreCase("Web") && webBrowserType.equalsIgnoreCase("firefox")) {
-                logger.info("++++++++++++++++++++++++++++++++ Null Driver. Creating Web Driver of Firefox...");
+                LOGGER.info("Null Driver. Creating Web Driver of Firefox...");
                 Driver.initWebFirefoxDriver();
             } else {
-                logger.info("++++++++++++++++++++++++++++++++ Not Web Automation. WebDriver return null...");
+                LOGGER.info("Not Web Automation. WebDriver return null...");
                 return null;
             }
             webDriver.manage().window().maximize();
@@ -152,8 +152,8 @@ public class Driver {
             appiumDriver = new AppiumDriver(server, cap);
 
         } catch (Exception e) {
-            System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
-            System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
+            System.out.println("Exception cause:" + e.getCause());
+            System.out.println("Exception message:" + e.getMessage());
         }
 
     }
@@ -177,8 +177,8 @@ public class Driver {
             appiumDriver = new AppiumDriver(server, cap);
 
         } catch (Exception e) {
-            System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
-            System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
+            System.out.println("Exception cause:" + e.getCause());
+            System.out.println("Exception message:" + e.getMessage());
         }
 
     }
@@ -193,7 +193,6 @@ public class Driver {
         if (webRemote) {
             Driver.startRemoteDriver(new DesiredCapabilities(opts));
         } else {
-//            WebDriverManager.chromedriver().setup();
             System.setProperty("webdriver.chrome.driver", driverPath + "/chromedriver");
             webDriver = new ChromeDriver(opts);
         }
@@ -213,7 +212,6 @@ public class Driver {
         if (webRemote) {
             Driver.startRemoteDriver(new DesiredCapabilities(opts));
         } else {
-//            WebDriverManager.chromedriver().setup();
             System.setProperty("webdriver.gecko.driver", driverPath + "/geckodriver");
             webDriver = new FirefoxDriver(opts);
         }
@@ -223,21 +221,20 @@ public class Driver {
         try {
             webDriver = new RemoteWebDriver(new URL(automationSeleniumGridUrl), caps);
         } catch (Exception e) {
-            System.out.println("//////////////////////////////// Exception cause:" + e.getCause());
-            System.out.println("//////////////////////////////// Exception message:" + e.getMessage());
+            System.out.println("Exception cause:" + e.getCause());
+            System.out.println("Exception message:" + e.getMessage());
         }
     }
 
     public static void destroyDriver() {
-        if (appiumDriver != null) {
-            logger.info("++++++++++++++++++++++++++++++++ Destroying Appium Driver...");
+        if (automationType.equalsIgnoreCase("Android")
+                || automationType.equalsIgnoreCase("IOS")) {
+            LOGGER.info("Destroying Appium Driver...");
             appiumDriver.quit();
-            appiumDriver = null;
-        }
-        if (webDriver != null) {
-            logger.info("++++++++++++++++++++++++++++++++ Destroying Web Driver...");
+
+        } else if (automationType.equalsIgnoreCase("Web")) {
+            LOGGER.info("Destroying Web Driver...");
             webDriver.quit();
-            webDriver = null;
         }
     }
 

@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class WebBingSearchStep {
@@ -21,7 +22,7 @@ public class WebBingSearchStep {
     @When("^Input something on search text field and hit search$")
     public void inputSomethingOnSearchTextFieldAndHitSearch() throws Throwable {
         bingSearchPage.getSearchTextField().sendKeys("github");
-        bingSearchPage.getSearchBTN().click();
+        bingSearchPage.getSearchTextField().sendKeys(Keys.ENTER);
     }
 
     @Then("^I can see the search result$")

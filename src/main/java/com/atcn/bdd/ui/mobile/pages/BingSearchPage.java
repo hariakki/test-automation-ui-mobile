@@ -29,6 +29,7 @@ public class BingSearchPage extends BasePage {
 
     public WebElement getResultLINKTXT() {
         waitFluentVisibilityOfElm(resultLINKTXT);
+        logger.debug("Search result link text is: " + resultLINKTXT.getText());
         return resultLINKTXT;
     }
 }

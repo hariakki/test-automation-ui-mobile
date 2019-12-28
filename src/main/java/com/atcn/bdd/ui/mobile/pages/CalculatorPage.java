@@ -10,54 +10,54 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CalculatorPage extends BasePage {
 
-//    @FindBy(how = How.ID, using = "digit1")
+    //    @FindBy(how = How.ID, using = "digit1")
 //    @iOSXCUITFindBy(id = "digit1")
-    @AndroidFindBy( id = "digit_1")
+    @AndroidFindBy(id = "digit_1")
     private MobileElement digi_1_btn;
 
-    @AndroidFindBy( id = "digit_2")
+    @AndroidFindBy(id = "digit_2")
     private MobileElement digi_2_btn;
 
-    @AndroidFindBy( id = "digit_3")
+    @AndroidFindBy(id = "digit_3")
     private MobileElement digi_3_btn;
 
-    @AndroidFindBy( id = "digit_4")
+    @AndroidFindBy(id = "digit_4")
     private MobileElement digi_4_btn;
 
-    @AndroidFindBy( id = "digit_5")
+    @AndroidFindBy(id = "digit_5")
     private MobileElement digi_5_btn;
 
-    @AndroidFindBy( id = "digit_6")
+    @AndroidFindBy(id = "digit_6")
     private MobileElement digi_6_btn;
 
-    @AndroidFindBy( id = "digit_7")
+    @AndroidFindBy(id = "digit_7")
     private MobileElement digi_7_btn;
 
-    @AndroidFindBy( id = "digit_8")
+    @AndroidFindBy(id = "digit_8")
     private MobileElement digi_8_btn;
 
-    @AndroidFindBy( id = "digit9")
+    @AndroidFindBy(id = "digit9")
     private MobileElement digi_9_btn;
 
-    @AndroidFindBy( accessibility = "plus")
+    @AndroidFindBy(accessibility = "plus")
     private MobileElement plus_btn;
 
-    @AndroidFindBy( accessibility = "minus")
+    @AndroidFindBy(accessibility = "minus")
     private MobileElement minus_btn;
 
-    @AndroidFindBy( accessibility = "multiply")
+    @AndroidFindBy(accessibility = "multiply")
     private MobileElement mul_btn;
 
-    @AndroidFindBy( accessibility = "divide")
+    @AndroidFindBy(accessibility = "divide")
     private MobileElement div_btn;
 
-    @AndroidFindBy( accessibility = "equals")
+    @AndroidFindBy(accessibility = "equals")
     private MobileElement equal_btn;
 
-    @AndroidFindBy( accessibility = "delete")
+    @AndroidFindBy(accessibility = "delete")
     private MobileElement delete_btn;
 
-    @AndroidFindBy( id = "result")
+    @AndroidFindBy(id = "result")
     private MobileElement result_txt;
 
     public MobileElement getDigi_1_btn() {
@@ -137,7 +137,7 @@ public class CalculatorPage extends BasePage {
 
     public MobileElement getResult_txt() {
         waitFluentVisibilityOfElm(result_txt);
-        logger.info("Calculated result is: " +result_txt.getText());
+        logger.debug("Calculated result is: " + result_txt.getText());
         return result_txt;
     }
 }

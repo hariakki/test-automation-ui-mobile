@@ -20,7 +20,7 @@
 		<appium.version>7.0.0</appium.version>
 		<selenium.version>3.141.59</selenium.version>
 		<junit.version>4.12</junit.version>
-		<webdrivermanager.version>3.7.1</webdrivermanager.version>
+		<cucumber.reporting.version>5.0.1</cucumber.reporting.version>
 	</properties>
 
 	<dependencies>
@@ -63,12 +63,11 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>${cucumber.reporting.version}</version>
+		</dependency>
 
 	</dependencies>
 

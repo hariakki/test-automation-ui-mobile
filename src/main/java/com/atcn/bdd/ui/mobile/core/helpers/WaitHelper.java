@@ -18,7 +18,7 @@ public abstract class WaitHelper {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    protected AppiumDriver driver = Driver.launchDriver();
+    protected AppiumDriver driver = Driver.launchAppiumDriver();
 
     protected WebDriver webDriver = Driver.launchWebDriver();
 

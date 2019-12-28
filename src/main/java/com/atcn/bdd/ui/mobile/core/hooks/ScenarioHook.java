@@ -12,12 +12,12 @@ public class ScenarioHook {
 
     @Before
     public void setup(Scenario scenario) {
-        logger.info("============================== Scenario before hook started");
+        logger.info("Scenario before hook started");
     }
 
     @After
     public void teardown(Scenario scenario) {
-        logger.info("============================== Scenario after hook started");
+        logger.info("Scenario after hook started");
 
     }
 }

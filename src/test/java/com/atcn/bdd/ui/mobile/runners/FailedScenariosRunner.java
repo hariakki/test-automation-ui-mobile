@@ -10,17 +10,16 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 //    dryRun = true,
 //    monochrome = true,
-    tags = {"@Mobile-1"},
-    features = {"src/test/resources/features"},
+    features = {"@target/rerun.txt"},
     glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
     plugin = {
             "pretty",
             "html:target/cucumber",
-            "json:target/cucumber-report-json/cucumber-report.json",
+            "json:target/cucumber-report-json/cucumber-report-rerun.json",
             "rerun:target/rerun.txt"
     }
 )
-public class MobileRunner {
+public class FailedScenariosRunner {
 
     @AfterClass
     public static void afterClass() {
