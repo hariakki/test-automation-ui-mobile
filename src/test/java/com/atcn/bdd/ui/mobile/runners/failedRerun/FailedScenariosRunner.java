@@ -1,4 +1,4 @@
-package com.atcn.bdd.ui.mobile.runners;
+package com.atcn.bdd.ui.mobile.runners.failedRerun;
 
 import com.atcn.bdd.ui.mobile.core.Driver;
 import cucumber.api.CucumberOptions;
@@ -10,14 +10,14 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 //    dryRun = true,
 //    monochrome = true,
-    features = {"@target/rerun.txt"},
-    glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
-    plugin = {
-            "pretty",
-            "html:target/cucumber",
-            "json:target/cucumber-report-json/cucumber-report-rerun.json",
-            "rerun:target/rerun.txt"
-    }
+        features = {"@target/rerun.txt"},
+        glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
+        plugin = {
+                "pretty",
+                "html:target/cucumber",
+                "json:target/cucumber-report-json/cucumber-report-rerun.json",
+                "rerun:target/rerun.txt"
+        }
 )
 public class FailedScenariosRunner {
 

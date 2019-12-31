@@ -2,27 +2,27 @@
 # if (mobileBrowserToggle) ? "Execute mobile browser":"Execute mobile app".
 automation:
   type: "Android"
-  mobileBrowserToggle: true
+  mobileBrowserToggle: false
   appiumServer: "http://127.0.0.1:4723/wd/hub"
   seleniumGridServer: "http://192.168.56.1:4444/wd/hub"
 
 capability:
   android:
-    browserName: "Chrome"
+    browserName: "NA"
     platformName: "Android"
-    platformVersion: "8.0.0"
-    deviceName: "Nexus5API26_A80"
-    udid: "emulator-5554"
+    platformVersion: "9"
+    deviceName: "BenDevice"
+    udid: "XWE6R19521029790"
     noReset: true
     fullReset: false
-    newCMDTimeout: 60
+    newCMDTimeout: 30
 
   ios:
-    browserName: "Safari"
-    platformName: "IOS"
-    platformVersion: "ios 12.3"
-    deviceName: "iPhone 11 Pro"
-    udid: "IdoNotKnow"
+    browserName: "NA"
+    platformName: "NA"
+    platformVersion: "NA"
+    deviceName: "NA"
+    udid: "NA"
     noReset: true
     fullReset: false
     newCMDTimeout: 60
@@ -30,5 +30,5 @@ capability:
 # capability.web.browserType - {chrome, firefox} - Take effect with automation.type=Web
 # remote to determine whether to run on selenium grid
   web:
-    browserType: "chrome"
+    browserType: "NA"
     remote: false

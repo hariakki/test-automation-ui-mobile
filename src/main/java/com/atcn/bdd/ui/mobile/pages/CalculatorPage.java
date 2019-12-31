@@ -2,16 +2,41 @@ package com.atcn.bdd.ui.mobile.pages;
 
 import com.atcn.bdd.ui.mobile.core.BasePage;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.time.temporal.ChronoUnit;
 
 @Component
 @Scope("prototype")
 public class CalculatorPage extends BasePage {
 
-    //    @FindBy(how = How.ID, using = "digit1")
-//    @iOSXCUITFindBy(id = "digit1")
+    /**
+     * @FindBys : When the required WebElement objects need to match all of the given criteria use @FindBys annotation
+     * @FindAll : When required WebElement objects need to match at least one of the given criteria use @FindAll annotation
+     *
+     * @AndroidFindAl : At least one of @AndroidBy value should be matched
+     * e.g.
+     * @AndroidFindAll({
+     *      @AndroidBy(accessibility = "plus"),
+     *      @AndroidBy(id = "op_add")
+     * })
+     *
+     *
+     * @AndroidFindBys : Each one of @AndroidBy value should be matched.
+     * e.g.
+     * @AndroidFindBys({
+     *      @AndroidBy(id = "formula"),
+     *      @AndroidBy(id = "formula")
+     * })
+     *
+     * Other optional timeout by annotation to use
+     * @WithTimeout(time = 10, chronoUnit = ChronoUnit.SECONDS)
+     *
+     */
+
+
     @AndroidFindBy(id = "digit_1")
     private MobileElement digi_1_btn;
 
@@ -39,7 +64,14 @@ public class CalculatorPage extends BasePage {
     @AndroidFindBy(id = "digit9")
     private MobileElement digi_9_btn;
 
-    @AndroidFindBy(accessibility = "plus")
+    @WithTimeout(time = 10, chronoUnit = ChronoUnit.SECONDS)
+    @AndroidFindAll({
+            /**
+             * At least one of them should be matched
+             */
+            @AndroidBy(accessibility = "plus"),
+            @AndroidBy(id = "op_add")
+    })
     private MobileElement plus_btn;
 
     @AndroidFindBy(accessibility = "minus")
@@ -51,13 +83,32 @@ public class CalculatorPage extends BasePage {
     @AndroidFindBy(accessibility = "divide")
     private MobileElement div_btn;
 
-    @AndroidFindBy(accessibility = "equals")
+    @WithTimeout(time = 10, chronoUnit = ChronoUnit.SECONDS)
+    @AndroidFindAll({
+            /**
+             * At least one of them should be matched
+             */
+            @AndroidBy(id = "eq"),
+            @AndroidBy(accessibility = "equals")
+    })
     private MobileElement equal_btn;
 
-    @AndroidFindBy(accessibility = "delete")
+    @AndroidFindAll({
+            /**
+             * At least one of them should be matched
+             */
+            @AndroidBy(accessibility = "delete"),
+            @AndroidBy(id = "del")
+    })
     private MobileElement delete_btn;
 
-    @AndroidFindBy(id = "result")
+    @AndroidFindAll({
+            /**
+             * Each one of them should be ALL matched
+             */
+            @AndroidBy(id = "formula"),
+            @AndroidBy(id = "result")
+    })
     private MobileElement result_txt;
 
     public MobileElement getDigi_1_btn() {

@@ -1,7 +1,6 @@
-@Mobile-1
-Feature: Mobile-1_AndroidCalculator
+@App-AOS
+Feature: App-AOS_Calculator
 
-  @Mobile-1-1
   Scenario: Android calculator add
     Given I am on calculator page
     When Tap number twelve

@@ -21,6 +21,7 @@
 		<selenium.version>3.141.59</selenium.version>
 		<junit.version>4.12</junit.version>
 		<cucumber.reporting.version>5.0.1</cucumber.reporting.version>
+		<testng.version>7.1.0</testng.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +69,13 @@
 			<artifactId>cucumber-reporting</artifactId>
 			<version>${cucumber.reporting.version}</version>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.testng</groupId>-->
+			<!--<artifactId>testng</artifactId>-->
+			<!--<version>${testng.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
 
 	</dependencies>
 

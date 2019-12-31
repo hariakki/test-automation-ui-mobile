@@ -21,13 +21,10 @@ public class ScenarioHook {
     @After()
     public void teardown(Scenario scenario) {
         logger.info("Scenario after hook starting...");
-
         if (Driver.getAutomationType().equalsIgnoreCase("Web")) {
-
             if (scenario.isFailed()) {
-                scenario.write("Current URL is: \n" + Driver.getWebDriver().getCurrentUrl());
+                scenario.write("FAILED URL is: \n" + Driver.getWebDriver().getCurrentUrl());
             }
-
             logger.info("Capturing Web screenshot...");
             final byte[] screenshot = ((TakesScreenshot) Driver.getWebDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
@@ -36,11 +33,43 @@ public class ScenarioHook {
             Driver.getWebDriver().quit();
 
         } else if (Driver.getAutomationType().equalsIgnoreCase("Android")
-                || Driver.getAutomationType().equalsIgnoreCase("IOS")) {
-
-            logger.info("Capturing Mobile screenshot...");
-            final byte[] screenshot = Driver.getAppiumDriver().getScreenshotAs(OutputType.BYTES);
+                && Driver.isAutomationMobileBrowserToggle()) {
+            if (scenario.isFailed()) {
+                scenario.write("FAILED URL is: \n" + Driver.getAndroidDriver().getCurrentUrl());
+            }
+            logger.info("Capturing Android browser screenshot...");
+            final byte[] screenshot = Driver.getAndroidDriver().getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
+
+            logger.info("Android browser Driver quiting...");
+            Driver.getAndroidDriver().quit();
+
+        } else if (Driver.getAutomationType().equalsIgnoreCase("Android")
+                && !Driver.isAutomationMobileBrowserToggle()) {
+            logger.info("Capturing Android app screenshot...");
+            final byte[] screenshot = Driver.getAndroidDriver().getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+
+            // None browser driver will be quit on AfterClass.
+
+        } else if (Driver.getAutomationType().equalsIgnoreCase("IOS")
+                && Driver.isAutomationMobileBrowserToggle()) {
+            if (scenario.isFailed()) {
+                scenario.write("FAILED URL is: \n" + Driver.getIosDriver().getCurrentUrl());
+            }
+            logger.info("Capturing IOS browser screenshot...");
+            final byte[] screenshot = Driver.getIosDriver().getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+
+            logger.info("IOS browser Driver quiting...");
+            Driver.getIosDriver().quit();
+        } else if (Driver.getAutomationType().equalsIgnoreCase("IOS")
+                && !Driver.isAutomationMobileBrowserToggle()) {
+            logger.info("Capturing IOS app screenshot...");
+            final byte[] screenshot = Driver.getIosDriver().getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+
+            // None browser driver will be quit on AfterClass.
         }
     }
 }

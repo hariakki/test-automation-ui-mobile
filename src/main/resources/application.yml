@@ -1,9 +1,10 @@
-# Put common beans here, can be overwritten by "Specific environment" or "VM Option"
-spring.profiles.active: default
+# Put common beans here, can be overwritten by "Specific environment" or "VM options"
+
+# Profiles: {aosbrowser, aosapp, iosbrowser, iosapp, webbrowser}
+spring.profiles.active: aosapp
+
 spring.output.ansi.enabled: always
----
-spring:
-  profiles: default
+
 logging:
   file:
    name: logs/default.log
@@ -19,21 +20,3 @@ logging:
     com.atcn.bdd.ui.mobile.core: DEBUG
     com.atcn.bdd.ui.mobile.pages: DEBUG
     com.atcn.bdd.ui.mobile.steps: DEBUG
----
-spring:
-  profiles: prod
-logging:
-  file:
-   name: logs/production.log
-   path: .
-   max-size: 10MB
-
-  pattern:
-    console: "%d %clr(%-5level){magenta} %logger : %clr(%msg%n){green}"
-    file: "%d %-5level [%thread] %logger : %msg%n"
-    rolling-file-name: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
-
-  level:
-    com.atcn.bdd.ui.mobile.core: WARN
-    com.atcn.bdd.ui.mobile.pages: WARN
-    com.atcn.bdd.ui.mobile.steps: WARN

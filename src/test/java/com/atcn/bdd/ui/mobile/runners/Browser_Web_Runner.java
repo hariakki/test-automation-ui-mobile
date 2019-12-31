@@ -11,16 +11,16 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 //    dryRun = true,
 //    monochrome = true,
-    tags = {"@Web-1"},
-    features = {"src/test/resources/features"},
-    glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
-    plugin = {
-            "pretty",
-            "json:target/cucumber-report-json/cucumber-report.json",
-            "rerun:target/rerun.txt"
-    }
+        tags = {"@Browser-Web"},
+        features = {"src/test/resources/features"},
+        glue = {"com.atcn.bdd.ui.mobile.steps", "com.atcn.bdd.ui.mobile.core.hooks"},
+        plugin = {
+                "pretty",
+                "json:target/cucumber-report-json/cucumber-report.json",
+                "rerun:target/rerun.txt"
+        }
 )
-public class WebRunner {
+public class Browser_Web_Runner {
 
     @AfterClass
     public static void afterClass() {
